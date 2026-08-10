@@ -1,0 +1,500 @@
+/* ═══════════════════════════════════════════════════════
+   components.css  —  CanchaYa
+   Componentes: cards, booking, slots, formulario, pills
+═══════════════════════════════════════════════════════ */
+
+/* ── Chip / filter buttons ──────────────────────────── */
+.chip {
+  padding: 6px 16px;
+  border: 1.5px solid var(--gray-100);
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  color: var(--text-muted);
+  background: transparent;
+  font-family: 'DM Sans', sans-serif;
+  transition: all var(--transition);
+}
+
+.chip:hover {
+  border-color: var(--green);
+  color: var(--green);
+}
+
+.chip.active {
+  background: var(--green-dark);
+  border-color: var(--green-dark);
+  color: var(--green-light);
+}
+
+/* ── Cancha card ────────────────────────────────────── */
+.cancha-card {
+  background: var(--white);
+  border: 1.5px solid var(--gray-100);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  cursor: pointer;
+  transition: border-color var(--transition), transform var(--transition), box-shadow var(--transition);
+}
+
+.cancha-card:hover {
+  border-color: var(--green);
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-lg);
+}
+
+.card-thumb {
+  height: 130px;
+  background: var(--green-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.card-thumb svg { width: 100px; opacity: 0.7; }
+
+.card-thumb-badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 9px;
+  border-radius: 999px;
+  background: var(--green-light);
+  color: var(--green-dark);
+}
+
+.card-body { padding: 14px 16px; }
+.card-title { font-size: 15px; font-weight: 600; margin-bottom: 3px; }
+.card-sub   { font-size: 13px; color: var(--text-muted); margin-bottom: 12px; }
+
+.card-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.card-price {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--green);
+}
+
+.card-price span {
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--text-muted);
+}
+
+/* ── Pills ──────────────────────────────────────────── */
+.pill {
+  font-size: 11px;
+  font-weight: 500;
+  padding: 3px 9px;
+  border-radius: 999px;
+}
+
+.pill-green { background: var(--green-pale); color: var(--green-mid); }
+.pill-gray  { background: var(--gray-50);   color: var(--gray-600);  }
+
+/* ── Btn reservar (card) ────────────────────────────── */
+.btn-reservar {
+  width: 100%;
+  padding: 9px;
+  background: var(--green-dark);
+  color: var(--green-light);
+  border: none;
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  transition: background var(--transition);
+}
+
+.btn-reservar:hover { background: var(--green-mid); }
+
+/* ── Booking layout ─────────────────────────────────── */
+.booking-layout {
+  display: grid;
+  grid-template-columns: 1fr 400px;
+  gap: 32px;
+}
+
+@media (max-width: 720px) {
+  .booking-layout { grid-template-columns: 1fr; }
+}
+
+.booking-left h2 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 36px;
+  letter-spacing: 1px;
+  margin-bottom: 4px;
+  color: var(--text);
+}
+
+.booking-left > p {
+  font-size: 14px;
+  color: var(--text-muted);
+  margin-bottom: 24px;
+}
+
+.info-chips {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 28px;
+}
+
+/* ── Label section ──────────────────────────────────── */
+.label-section {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  margin-bottom: 12px;
+}
+
+/* ── Slot grid ──────────────────────────────────────── */
+.slots-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.slot {
+  padding: 10px 6px;
+  text-align: center;
+  font-size: 13px;
+  font-weight: 500;
+  border: 1.5px solid var(--gray-100);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  color: var(--text-muted);
+  background: var(--white);
+  transition: all var(--transition);
+  font-family: 'DM Sans', sans-serif;
+}
+
+.slot:hover:not(.busy) {
+  border-color: var(--green);
+  color: var(--green);
+  background: var(--green-bg);
+}
+
+.slot.selected {
+  background: var(--green-dark);
+  border-color: var(--green-dark);
+  color: var(--green-light);
+}
+
+.slot.busy {
+  background: var(--gray-50);
+  color: var(--gray-100);
+  text-decoration: line-through;
+  cursor: not-allowed;
+}
+
+/* ── Slot legend ────────────────────────────────────── */
+.slot-legend {
+  display: flex;
+  gap: 16px;
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-bottom: 28px;
+}
+
+.slot-legend span {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.dot-avail { width: 8px; height: 8px; border-radius: 50%; background: var(--green); }
+.dot-busy  { width: 8px; height: 8px; border-radius: 50%; background: var(--gray-100); }
+.dot-sel   { width: 8px; height: 8px; border-radius: 50%; background: var(--green-dark); }
+
+/* ── Booking form ───────────────────────────────────── */
+.booking-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.form-group label {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-muted);
+}
+
+.form-group input,
+.form-group select {
+  padding: 10px 13px;
+  border: 1.5px solid var(--gray-100);
+  border-radius: var(--radius-sm);
+  font-size: 14px;
+  font-family: 'DM Sans', sans-serif;
+  background: var(--white);
+  color: var(--text);
+  outline: none;
+  transition: border-color var(--transition);
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  border-color: var(--green);
+}
+
+/* ── Summary card (booking sidebar) ────────────────── */
+.summary {
+  background: var(--green-dark);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  color: var(--white);
+  position: sticky;
+  top: 80px;
+}
+
+.summary h3 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 22px;
+  letter-spacing: 1px;
+  color: var(--green-light);
+  margin-bottom: 20px;
+}
+
+.sum-thumb {
+  width: 100%;
+  height: 120px;
+  background: var(--green-mid);
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.sum-thumb svg { width: 80px; opacity: 0.8; }
+
+.sum-rows {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+.sum-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  font-size: 14px;
+}
+
+.sum-row:last-child { border-bottom: none; }
+.sum-row .label  { color: var(--gray-400); }
+.sum-row .value  { color: var(--white); font-weight: 500; }
+
+.sum-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 16px;
+  background: var(--green-mid);
+  border-radius: var(--radius-md);
+  margin-bottom: 20px;
+}
+
+.sum-total .t-label {
+  font-size: 13px;
+  color: var(--green-pale);
+}
+
+.sum-total .t-value {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 28px;
+  letter-spacing: 1px;
+  color: var(--green-light);
+}
+
+/* ── Confirm button ─────────────────────────────────── */
+.btn-confirm {
+  width: 100%;
+  padding: 13px;
+  background: var(--green-light);
+  color: var(--green-dark);
+  border: none;
+  border-radius: var(--radius-sm);
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  transition: background var(--transition);
+}
+
+.btn-confirm:hover { background: #8fd95a; }
+
+/* ── Empty state ────────────────────────────────────── */
+.empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--text-muted);
+}
+
+.empty-state .empty-icon {
+  font-size: 48px;
+  margin-bottom: 16px;
+  opacity: 0.5;
+}
+
+.empty-state p {
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+
+/* ── Admin: dashboard ────────────────────────────────── */
+.admin-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 16px;
+  margin-bottom: 28px;
+}
+
+.admin-stat-card {
+  background: var(--white);
+  border: 1.5px solid var(--gray-100);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+}
+
+.admin-stat-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 32px;
+  color: var(--green-mid);
+}
+
+.admin-stat-label {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+/* ── Admin: tabs ─────────────────────────────────────── */
+.admin-tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+
+/* ── Admin: tablas/listas ────────────────────────────── */
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--white);
+  border: 1.5px solid var(--gray-100);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.admin-table th, .admin-table td {
+  padding: 12px 14px;
+  text-align: left;
+  font-size: 13.5px;
+  border-bottom: 1px solid var(--gray-100);
+}
+
+.admin-table th {
+  background: var(--gray-50);
+  color: var(--text-muted);
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 11.5px;
+  letter-spacing: 0.03em;
+}
+
+.admin-table tr:last-child td { border-bottom: none; }
+
+.btn-mini {
+  padding: 6px 12px;
+  border-radius: var(--radius-sm);
+  font-size: 12.5px;
+  font-weight: 600;
+  border: 1.5px solid;
+  cursor: pointer;
+  background: transparent;
+  font-family: 'DM Sans', sans-serif;
+  transition: all var(--transition);
+  margin-right: 6px;
+}
+
+.btn-mini-danger { border-color: #cc3300; color: #cc3300; }
+.btn-mini-danger:hover { background: #cc3300; color: var(--white); }
+
+.btn-mini-green { border-color: var(--green-mid); color: var(--green-mid); }
+.btn-mini-green:hover { background: var(--green-mid); color: var(--white); }
+
+/* ── Admin: formulario nuevo usuario ─────────────────── */
+.admin-form-card {
+  background: var(--white);
+  border: 1.5px solid var(--gray-100);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  margin-bottom: 24px;
+}
+
+.admin-form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.badge-admin {
+  background: var(--green-mid);
+  color: var(--white);
+  font-size: 11px;
+  padding: 3px 8px;
+  border-radius: 20px;
+  font-weight: 600;
+}
+
+.badge-cliente {
+  background: var(--gray-100);
+  color: var(--text-muted);
+  font-size: 11px;
+  padding: 3px 8px;
+  border-radius: 20px;
+  font-weight: 600;
+}
+
+
+/* ===== Responsive componentes ===== */
+@media (max-width:992px){
+.booking-layout{grid-template-columns:1fr}
+.summary{position:static}
+}
+@media (max-width:768px){
+.slots-grid{grid-template-columns:repeat(2,1fr)}
+.slot-legend{flex-wrap:wrap;gap:8px}
+.admin-table{display:block;overflow-x:auto;white-space:nowrap}
+.admin-form-grid{grid-template-columns:1fr}
+.card-row,.sum-row,.sum-total{flex-wrap:wrap;gap:8px}
+}
+@media (max-width:480px){
+.slots-grid{grid-template-columns:1fr}
+.booking-left h2{font-size:28px}
+.summary{padding:18px}
+}

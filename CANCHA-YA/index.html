@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CanchaYa — Reserva de Canchas de Fútbol</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="css/styles.css"/>
+  <link rel="stylesheet" href="css/components.css"/>
+</head>
+<body>
+
+  <!-- ══ NAVBAR ══════════════════════════════════════════════════════════ -->
+<nav class="navbar">
+    <div class="logo">
+      <div class="logo-ball">⚽</div>
+      CanchaYa
+    </div>
+    <div class="nav-links" id="nav-links">
+      <a onclick="showHome()">Inicio</a>
+      <a onclick="showMisReservas()">Mis reservas</a>
+      <a id="nav-admin-link" onclick="showAdmin()" style="display:none;">Admin</a>
+      <a>Contacto</a>
+      <button class="nav-cta nav-cta-mobile" onclick="showLogin()">Iniciar sesión</button>
+    </div>
+    <button class="nav-cta nav-cta-desktop" onclick="showLogin()">Iniciar sesión</button>
+    <button class="nav-toggle" id="nav-toggle" aria-label="Abrir menú" aria-expanded="false" aria-controls="nav-links" onclick="toggleNavMenu()">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </nav>
+  <div class="nav-overlay" id="nav-overlay" onclick="closeNavMenu()"></div>
+
+  <!-- ══ MAIN WRAPPER ═════════════════════════════════════════════════════ -->
+  <div class="page">
+
+    <!-- ── HOME VIEW ──────────────────────────────────────────────────── -->
+    <div id="home-view">
+
+      <!-- Hero -->
+      <section class="hero">
+        <div class="hero-text">
+          <h1>RESERVA TU <span>CANCHA</span> DE FÚTBOL</h1>
+          <p>Encuentra y reserva canchas deportivas disponibles en segundos. Sin llamadas, sin complicaciones.</p>
+          <div class="hero-search">
+            <input type="text" id="search-input" placeholder="Buscar por nombre o zona..." />
+            <button onclick="buscarCanchas()">Buscar</button>
+          </div>
+        </div>
+        <div class="hero-visual">
+          <svg class="field-svg" viewBox="0 0 200 130" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="4" y="4" width="192" height="122" rx="4" stroke="#3d8a1c" stroke-width="2" fill="#1a3a0a"/>
+            <line x1="100" y1="4" x2="100" y2="126" stroke="#2d6614" stroke-width="1.5"/>
+            <circle cx="100" cy="65" r="18" stroke="#2d6614" stroke-width="1.5"/>
+            <circle cx="100" cy="65" r="2" fill="#3d8a1c"/>
+            <rect x="4" y="38" width="28" height="54" stroke="#2d6614" stroke-width="1.5"/>
+            <rect x="4" y="50" width="12" height="30" stroke="#2d6614" stroke-width="1.5"/>
+            <rect x="168" y="38" width="28" height="54" stroke="#2d6614" stroke-width="1.5"/>
+            <rect x="184" y="50" width="12" height="30" stroke="#2d6614" stroke-width="1.5"/>
+            <path d="M4 52 Q18 65 4 78" stroke="#2d6614" stroke-width="1.5" fill="none"/>
+            <path d="M196 52 Q182 65 196 78" stroke="#2d6614" stroke-width="1.5" fill="none"/>
+          </svg>
+        </div>
+      </section>
+
+      <!-- Stats -->
+      <div class="stats">
+        <div class="stat"><div class="stat-num">24</div><div class="stat-label">Canchas disponibles</div></div>
+        <div class="stat"><div class="stat-num">1.2K</div><div class="stat-label">Reservas este mes</div></div>
+        <div class="stat"><div class="stat-num">4.8★</div><div class="stat-label">Valoración promedio</div></div>
+        <div class="stat"><div class="stat-num">100%</div><div class="stat-label">Confirmación inmediata</div></div>
+      </div>
+
+      <!-- Filters -->
+      <div class="section-header">
+        <span class="section-title">Canchas disponibles hoy</span>
+      </div>
+      <div class="filters" id="filters">
+        <button class="chip active" onclick="filterCanchas('Todas', this)">Todas</button>
+        <button class="chip" onclick="filterCanchas('Fútbol 5', this)">Fútbol 5</button>
+        <button class="chip" onclick="filterCanchas('Fútbol 7', this)">Fútbol 7</button>
+        <button class="chip" onclick="filterCanchas('Fútbol 11', this)">Fútbol 11</button>
+        <button class="chip" onclick="filterCanchas('luz', this)">Con luz</button>
+        <button class="chip" onclick="filterCanchas('techada', this)">Techada</button>
+      </div>
+
+      <!-- Cards grid -->
+      <div class="grid" id="canchas-grid"></div>
+    </div>
+
+    <!-- ── BOOKING VIEW ────────────────────────────────────────────────── -->
+    <div id="booking-view" style="display:none;">
+      <button class="back-btn" onclick="showHome()">← Volver a canchas</button>
+      <div id="booking-content"></div>
+    </div>
+
+    <!-- ── SUCCESS VIEW ────────────────────────────────────────────────── -->
+    <div id="success-view" style="display:none;">
+      <div class="success-icon">✓</div>
+      <h2>¡RESERVA CONFIRMADA!</h2>
+      <p>Tu cancha fue reservada exitosamente. Te esperamos en la cancha.</p>
+      <div class="success-card" id="success-detail-card"></div>
+      <button class="btn-home" onclick="showHome()">Volver al inicio</button>
+    </div>
+
+    <!-- ── MIS RESERVAS VIEW ───────────────────────────────────────────── -->
+    <div id="misreservas-view" style="display:none;">
+      <button class="back-btn" onclick="showHome()">← Volver al inicio</button>
+      <h2 class="section-title" style="margin-bottom:20px;">Mis Reservas</h2>
+      <div id="misreservas-content"></div>
+    </div>
+
+    <!-- ── LOGIN VIEW ─────────────────────────────────────────────────── -->
+    <div id="login-view" style="display:none;">
+      <button class="back-btn" onclick="showHome()">← Volver al inicio</button>
+      <div class="login-container">
+        <div class="login-card">
+          <div class="login-logo">⚽ CanchaYa</div>
+          <h2>Iniciar sesión</h2>
+          <div class="form-group">
+            <label>Correo electrónico</label>
+            <input type="email" id="login-email" placeholder="correo@ejemplo.com"/>
+          </div>
+          <div class="form-group">
+            <label>Contraseña</label>
+            <input type="password" id="login-pass" placeholder="••••••••"/>
+          </div>
+          <button class="btn-confirm" onclick="doLogin()">Ingresar</button>
+          <p class="login-footer">¿No tienes cuenta? <a onclick="showRegister()">Regístrate aquí</a></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── REGISTER VIEW ──────────────────────────────────────────────── -->
+    <div id="register-view" style="display:none;">
+      <button class="back-btn" onclick="showLogin()">← Volver al login</button>
+      <div class="login-container">
+        <div class="login-card">
+          <div class="login-logo">⚽ CanchaYa</div>
+          <h2>Crear cuenta</h2>
+          <div class="form-group">
+            <label>Nombre completo</label>
+            <input type="text" id="reg-nombre" placeholder="Tu nombre"/>
+          </div>
+          <div class="form-group">
+            <label>Correo electrónico</label>
+            <input type="email" id="reg-email" placeholder="correo@ejemplo.com"/>
+          </div>
+          <div class="form-group">
+            <label>Teléfono</label>
+            <input type="tel" id="reg-tel" placeholder="+507 6000-0000"/>
+          </div>
+          <div class="form-group">
+            <label>Contraseña</label>
+            <input type="password" id="reg-pass" placeholder="Mínimo 6 caracteres"/>
+          </div>
+          <button class="btn-confirm" onclick="doRegister()">Crear cuenta</button>
+          <p class="login-footer">¿Ya tienes cuenta? <a onclick="showLogin()">Inicia sesión</a></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── ADMIN VIEW ──────────────────────────────────────────────────── -->
+    <div id="admin-view" style="display:none;">
+      <button class="back-btn" onclick="showHome()">← Volver al inicio</button>
+      <h2 class="section-title" style="margin-bottom:20px;">Panel de Administración</h2>
+      <div class="admin-tabs" id="admin-tabs">
+        <button class="chip active" onclick="switchAdminTab('dashboard', this)">Dashboard</button>
+        <button class="chip" onclick="switchAdminTab('usuarios', this)">Usuarios</button>
+        <button class="chip" onclick="switchAdminTab('reservas', this)">Reservas</button>
+        <button class="chip" onclick="switchAdminTab('canchas', this)">Canchas</button>
+      </div>
+      <div id="admin-content"></div>
+    </div>
+
+  </div><!-- /.page -->
+
+  <script src="js/data.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/reservas.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/admin.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
